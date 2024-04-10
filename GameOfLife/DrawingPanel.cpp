@@ -25,12 +25,27 @@ void DrawingPanel::OnPaint(wxPaintEvent&)
 		return; 
 	}
 
+	int cellSize = 10;
+
 	context->SetPen(*wxBLACK);
 	context->SetBrush(*wxWHITE);
-	context->DrawRectangle(0, 0, 10, 10);
-	context->DrawRectangle(10, 0, 10, 10);
 
-	context->DrawRectangle(0, 0, 10, 10);
+	// the GetClientSize() is a method of wxPanel's, which our DrawingPanel inherits
+	// it returns a wxSize object, which we save
+	wxSize mysize = GetClientSize();
+	// we calculate cell width by diving the width of the window by the number of cells
+	int cellWidth = mysize.GetWidth() / gridSize;
+	int cellHeight = mysize.GetHeight() / gridSize;
+
+	// the nested for loops have i and j be every possible pair of numbers from 0 to 15 if gridSize is 16
+	for (int i = 0; i < gridSize; i++)
+		for (int j = 0; j < gridSize; j++)
+			// cellWidth*i is the horizontal coordinate of the left side of rectangle
+			// cellHeight*j is the vertical coordinate of the top of the rectangle
+			context->DrawRectangle(cellWidth * i, cellHeight * j, cellWidth, cellHeight);
+
+	
+
 }
 
 DrawingPanel::~DrawingPanel()
