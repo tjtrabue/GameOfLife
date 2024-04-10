@@ -5,6 +5,7 @@
 class MainWindow;
 class DrawingPanel :public wxPanel
 {
+	int gridSize = 15;
 public:
 	void OnPaint(wxPaintEvent&);
 	DrawingPanel(MainWindow* parent);
