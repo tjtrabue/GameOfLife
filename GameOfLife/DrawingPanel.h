@@ -9,6 +9,7 @@ class DrawingPanel :public wxPanel
 public:
 	void OnPaint(wxPaintEvent&);
 	DrawingPanel(MainWindow* parent);
+	void SetSize(const wxSize& _size);
 	~DrawingPanel();
 };
 

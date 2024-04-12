@@ -45,8 +45,17 @@ void DrawingPanel::OnPaint(wxPaintEvent&)
 			context->DrawRectangle(cellWidth * i, cellHeight * j, cellWidth, cellHeight);
 
 	
-
+	
 }
+
+void DrawingPanel::SetSize(const wxSize& _size)
+{
+	wxPanel::SetSize(_size);
+	//wxRect rect = this->GetParent()->GetRect();
+	Refresh();
+		//true,&rect);
+} 
+
 
 DrawingPanel::~DrawingPanel()
 {
