@@ -11,8 +11,7 @@ MainWindow::MainWindow() :wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 
 
 	this->Bind(wxEVT_SIZE, &MainWindow::OnSizeChange, this);
 
-	//We pass in the panel instance of DrawingPanel
-	this->GridInitialize(panel);
+	this->GridInitialize();
 }
 
 void MainWindow::OnSizeChange(wxSizeEvent& event)
@@ -23,7 +22,7 @@ void MainWindow::OnSizeChange(wxSizeEvent& event)
 }
 
 //grid initialize
-void MainWindow::GridInitialize(DrawingPanel *)
+void MainWindow::GridInitialize()
 {
 	//set the the grid size to the variable Grid size.
 	gridstates.resize(GridSize);
