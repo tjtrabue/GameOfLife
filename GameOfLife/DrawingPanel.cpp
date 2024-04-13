@@ -51,10 +51,20 @@ void DrawingPanel::OnPaint(wxPaintEvent&)
 void DrawingPanel::SetSize(const wxSize& _size)
 {
 	wxPanel::SetSize(_size);
-	//wxRect rect = this->GetParent()->GetRect();
 	Refresh();
-		//true,&rect);
+	
 } 
+
+//int DrawingPanel::GetGridSize()
+//{
+
+//}
+
+//grid size method
+void DrawingPanel::SetGridSize(int newsize)
+{
+	gridSize = newsize;
+}
 
 
 DrawingPanel::~DrawingPanel()

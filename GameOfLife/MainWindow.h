@@ -12,5 +12,9 @@ public:
 	MainWindow();
 	~MainWindow();
 	void OnSizeChange(wxSizeEvent&);
+	void GridInitialize();
+	void GridInitialize(DrawingPanel*);
+	std::vector<std::vector<bool>> gridstates;
+	int GridSize = 15;
 };
 

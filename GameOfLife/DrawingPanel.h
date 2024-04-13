@@ -10,6 +10,7 @@ public:
 	void OnPaint(wxPaintEvent&);
 	DrawingPanel(MainWindow* parent);
 	void SetSize(const wxSize& _size);
+	void SetGridSize(int newsize);
 	~DrawingPanel();
 };
 
