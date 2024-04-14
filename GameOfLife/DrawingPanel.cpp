@@ -37,14 +37,30 @@ void DrawingPanel::OnPaint(wxPaintEvent&)
 	// we calculate cell width by diving the width of the window by the number of cells
 	int cellWidth = mysize.GetWidth() / gridSize;
 	int cellHeight = mysize.GetHeight() / gridSize;
+	bool cellValue;
 
 	// the nested for loops have i and j be every possible pair of numbers from 0 to 15 if gridSize is 16
 	for (int i = 0; i < gridSize; i++)
+	{
+
+
 		for (int j = 0; j < gridSize; j++)
+		{
 			// cellWidth*i is the horizontal coordinate of the left side of rectangle
 			// cellHeight*j is the vertical coordinate of the top of the rectangle
-			context->DrawRectangle(cellWidth * i, cellHeight * j, cellWidth, cellHeight);
+			cellValue = gameGrid[j][i];
+			if (cellValue == true)
+			{
+				context->SetBrush(*wxLIGHT_GREY);
+			}
+			else
+			{
+				context->SetBrush(*wxWHITE);
+			}
 
+			context->DrawRectangle(cellWidth * i, cellHeight * j, cellWidth, cellHeight);
+		}
+	}
 	
 	
 }
