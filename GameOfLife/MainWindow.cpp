@@ -74,6 +74,31 @@ void MainWindow::OnTrash(wxCommandEvent& event)
 
 }
 
+int MainWindow::NeighborCount(int x, int y)
+{
+	int result = 0;
+
+	// this does 8*4 = 32 comparisons
+	if (0 <= x - 1 && x - 1 < GridSize && 0 <= y && y < GridSize)
+		if (gridstates[x - 1][y]) ++result;
+	if (0 <= x - 1 && x - 1 < GridSize && 0 <= y - 1 && y - 1 < GridSize)
+		if (gridstates[x - 1][y - 1]) ++result;
+	if (0 <= x && x < GridSize && 0 <= y - 1 && y - 1 < GridSize)
+		if (gridstates[x][y - 1]) ++result;
+	if (0 <= x + 1 && x + 1 < GridSize && 0 <= y - 1 && y - 1 < GridSize)
+		if (gridstates[x + 1][y - 1]) ++result;
+	if (0 <= x + 1 && x + 1 < GridSize && 0 <= y && y < GridSize)
+		if (gridstates[x + 1][y]) ++result;
+	if (0 <= x + 1 && x + 1 < GridSize && 0 <= y + 1 && y + 1 < GridSize)
+		if (gridstates[x + 1][y + 1]) ++result;
+	if (0 <= x && x < GridSize && 0 <= y + 1 && y + 1 < GridSize)
+		if (gridstates[x][y + 1]) ++result;
+	if (0 <= x - 1 && x - 1 < GridSize && 0 <= y + 1 && y + 1 < GridSize)
+		if (gridstates[x - 1][y + 1]) ++result;
+
+	return result;
+}
+
 //grid initialize
 void MainWindow::GridInitialize()
 {

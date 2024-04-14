@@ -26,6 +26,7 @@ public:
 	void OnPause(wxCommandEvent&);
 	void OnNext(wxCommandEvent&);
 	void OnTrash(wxCommandEvent&);
+	int NeighborCount(int x, int y);
 	std::vector<std::vector<bool>> gridstates;
 	int GridSize = 15;
 	wxDECLARE_EVENT_TABLE();
