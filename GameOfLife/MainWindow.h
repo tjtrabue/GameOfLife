@@ -15,5 +15,6 @@ public:
 	void GridInitialize();
 	std::vector<std::vector<bool>> gridstates;
 	int GridSize = 15;
+	wxDECLARE_EVENT_TABLE();
 };
 

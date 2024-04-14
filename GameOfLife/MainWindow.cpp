@@ -1,5 +1,9 @@
 #include "MainWindow.h"
 #include "DrawingPanel.h"
+wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
+	EVT_SIZE(MainWindow::OnSizeChange)
+wxEND_EVENT_TABLE()
+
 
 MainWindow::MainWindow() :wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 0), wxSize(500, 300))
 {
@@ -9,7 +13,7 @@ MainWindow::MainWindow() :wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 
 	this->panel = panel;
 	this->SetSizer(boxSizer);
 
-	this->Bind(wxEVT_SIZE, &MainWindow::OnSizeChange, this);
+	//this->Bind(wxEVT_SIZE, &MainWindow::OnSizeChange, this);
 
 	this->GridInitialize();
 }

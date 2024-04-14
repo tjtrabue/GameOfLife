@@ -14,5 +14,6 @@ public:
 	void SetSize(const wxSize& _size);
 	void SetGridSize(int newsize);
 	~DrawingPanel();
+	wxDECLARE_EVENT_TABLE();
 };
 
