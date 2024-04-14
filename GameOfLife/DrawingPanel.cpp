@@ -6,11 +6,12 @@
 
 //class MainWindow;
 
-DrawingPanel::DrawingPanel(MainWindow* parent) :wxPanel(parent)
+DrawingPanel::DrawingPanel(MainWindow* parent, std::vector<std::vector<bool>>& gameGrid) :wxPanel(parent), gameGrid(gameGrid)
 {
+	
 	this->SetBackgroundStyle(wxBG_STYLE_PAINT);
 	this->Bind(wxEVT_PAINT, &DrawingPanel::OnPaint, this);
-
+	this->Bind(wxEVT_LEFT_UP, &DrawingPanel::OnMouseUp, this);
 }
 
 void DrawingPanel::OnPaint(wxPaintEvent&)
@@ -48,6 +49,34 @@ void DrawingPanel::OnPaint(wxPaintEvent&)
 	
 }
 
+void DrawingPanel::OnMouseUp(wxMouseEvent& mouseEvent)
+{
+	int _xValue = mouseEvent.GetX();
+	int _yValue = mouseEvent.GetY();
+	wxSize mysize = GetSize();
+	int cellWidth = mysize.GetWidth() / gridSize;
+	int cellHeight = mysize.GetHeight() / gridSize;
+	int column = _xValue / cellWidth;
+	int row = _yValue / cellHeight;
+	if (column >= gridSize || row >= gridSize)
+	{
+		return;
+	}
+	bool cellValue = gameGrid[row][column];
+
+	if (cellValue == true)
+	{
+		cellValue = false;
+	}
+	else
+	{
+		cellValue = true;
+	}
+	gameGrid[row][column] = cellValue; // setting value back into gamegrid
+
+	Refresh();
+}
+
 void DrawingPanel::SetSize(const wxSize& _size)
 {
 	wxPanel::SetSize(_size);
@@ -65,6 +94,8 @@ void DrawingPanel::SetGridSize(int newsize)
 {
 	gridSize = newsize;
 }
+
+
 
 
 DrawingPanel::~DrawingPanel()

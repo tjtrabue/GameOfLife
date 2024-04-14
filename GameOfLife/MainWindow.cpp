@@ -3,7 +3,7 @@
 
 MainWindow::MainWindow() :wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 0), wxSize(500, 300))
 {
-	DrawingPanel* panel = new DrawingPanel(this);
+	DrawingPanel* panel = new DrawingPanel(this, gridstates);
 	boxSizer = new wxBoxSizer(wxVERTICAL);
 	boxSizer->Add(panel, 1, wxEXPAND | wxALL);
 	this->panel = panel;
