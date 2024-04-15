@@ -66,6 +66,7 @@ void MainWindow::OnPause(wxCommandEvent& event)
 
 void MainWindow::OnNext(wxCommandEvent& event)
 {
+	NextGeneration();
 
 }
 
@@ -97,6 +98,36 @@ int MainWindow::NeighborCount(int x, int y)
 		if (gridstates[x - 1][y + 1]) ++result;
 
 	return result;
+}
+ void MainWindow::NextGeneration()
+{
+	// this initializes a GridSize vector of GridSize vectors of boolean falses
+	std::vector<std::vector<bool>> sandbox = gridstates;
+	int number_alive = 0;
+
+	for (int i = 0; i < GridSize; i++) {
+		for (int j = 0; j < GridSize; j++) {
+			int n = NeighborCount(i, j);
+			if (gridstates[i][j]) { //alive
+				if (2 <= n && n <= 3) {
+					sandbox[i][j] = true; // live cell with 2-3 live neighbors
+					number_alive++;
+				}
+			}
+			else { // dead
+				if (n == 3) {
+					sandbox[i][j] = true; // dead cell with exactly 3 live neighbors
+					number_alive++;
+				}
+			}
+		}
+	}
+	swap(gridstates, sandbox);
+	livingCells = number_alive;
+	generation++;
+	std::string statusText = "Generation: " + std::to_string(generation) + ", Living Cells: " + std::to_string(number_alive);
+	SetStatusBarText(wxString(statusText));
+	panel->Refresh();
 }
 
 //grid initialize
