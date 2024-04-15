@@ -11,6 +11,7 @@ wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
 	EVT_MENU(MainWindow::PAUSE_ID, MainWindow::OnPause)
 	EVT_MENU(MainWindow::NEXT_ID, MainWindow::OnNext)
 	EVT_MENU(MainWindow::TRASH_ID, MainWindow::OnTrash)
+	EVT_TIMER(MainWindow::TIMER_ID, MainWindow::OnTimer)
 wxEND_EVENT_TABLE()
 
 
@@ -34,6 +35,8 @@ MainWindow::MainWindow() :wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 
 	boxSizer->Add(panel, 1, wxEXPAND | wxALL);
 	this->panel = panel;
 	this->SetSizer(boxSizer);
+	//time
+	timer = new wxTimer(this, TIMER_ID);
 
 
 	
@@ -56,12 +59,12 @@ void MainWindow::OnSizeChange(wxSizeEvent& event)
 
 void MainWindow::OnPlay(wxCommandEvent& event)
 {
-
+	timer->Start(timerNum);
 }
 
 void MainWindow::OnPause(wxCommandEvent& event)
 {
-
+	timer->Stop();
 }
 
 void MainWindow::OnNext(wxCommandEvent& event)
@@ -77,7 +80,13 @@ void MainWindow::OnTrash(wxCommandEvent& event)
 	
 	SetStatusBarText(wxString("Generations:0   Living Cells:0"));
 	livingCells = 0;
+	generation = 0;
 	panel->Refresh();
+}
+
+void MainWindow::OnTimer(wxTimerEvent&)
+{
+	NextGeneration();
 }
 
 
