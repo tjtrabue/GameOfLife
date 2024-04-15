@@ -72,8 +72,15 @@ void MainWindow::OnNext(wxCommandEvent& event)
 
 void MainWindow::OnTrash(wxCommandEvent& event)
 {
-
+	for (auto& row : gridstates) 
+		std::fill(row.begin(), row.end(), false);
+	
+	SetStatusBarText(wxString("Generations:0   Living Cells:0"));
+	livingCells = 0;
+	panel->Refresh();
 }
+
+
 
 int MainWindow::NeighborCount(int x, int y)
 {
