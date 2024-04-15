@@ -98,11 +98,12 @@ int MainWindow::NeighborCount(int x, int y)
 		if (gridstates[x - 1][y + 1]) ++result;
 
 	return result;
+
 }
  void MainWindow::NextGeneration()
 {
 	// this initializes a GridSize vector of GridSize vectors of boolean falses
-	std::vector<std::vector<bool>> sandbox = gridstates;
+	/*std::vector<std::vector<bool>> sandbox = gridstates;
 	int number_alive = 0;
 
 	for (int i = 0; i < GridSize; i++) {
@@ -127,7 +128,37 @@ int MainWindow::NeighborCount(int x, int y)
 	generation++;
 	std::string statusText = "Generation: " + std::to_string(generation) + ", Living Cells: " + std::to_string(number_alive);
 	SetStatusBarText(wxString(statusText));
-	panel->Refresh();
+	panel->Refresh();*/
+	 std::vector<std::vector<bool>> sandbox(GridSize, std::vector<bool>(GridSize, false));
+	 int number_alive = 0;
+
+	 for (int i = 0; i < GridSize; i++) {
+		 for (int j = 0; j < GridSize; j++) {
+			 int n = NeighborCount(i, j);
+			 if (gridstates[i][j]) { // Alive
+				 if (n < 2 || n > 3) {
+					 sandbox[i][j] = false; // Cell dies
+				 }
+				 else {
+					 sandbox[i][j] = true; // Cell remains alive
+					 number_alive++;
+				 }
+			 }
+			 else { // Dead
+				 if (n == 3) {
+					 sandbox[i][j] = true; // Cell becomes alive
+					 number_alive++;
+				 }
+			 }
+		 }
+	 }
+
+	 swap(gridstates, sandbox); // Update the grid to the next generation
+	 livingCells = number_alive; // Update the count of living cells
+	 generation++; // Increment generation count
+	 std::string statusText = "Generation: " + std::to_string(generation) + ", Living Cells: " + std::to_string(number_alive);
+	 SetStatusBarText(wxString(statusText));
+	 panel->Refresh(); // Refresh the display
 }
 
 //grid initialize
