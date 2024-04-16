@@ -43,7 +43,7 @@ MainWindow::MainWindow() :wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 
 	//this->Bind(wxEVT_SIZE, &MainWindow::OnSizeChange, this);
 
 	this->GridInitialize();
-
+	//
 	this->Layout();
 }
 
