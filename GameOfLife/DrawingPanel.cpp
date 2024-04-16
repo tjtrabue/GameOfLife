@@ -38,27 +38,27 @@ void DrawingPanel::OnPaint(wxPaintEvent&)
 	// it returns a wxSize object, which we save
 	wxSize mysize = GetClientSize();
 	// we calculate cell width by diving the width of the window by the number of cells
-	int cellWidth = mysize.GetWidth() / gridSize;
-	int cellHeight = mysize.GetHeight() / gridSize;
+	int cellWidth = mysize.GetWidth() / setting->gridSize;
+	int cellHeight = mysize.GetHeight() / setting->gridSize;
 	bool cellValue;
 
 	// the nested for loops have i and j be every possible pair of numbers from 0 to 15 if gridSize is 16
-	for (int i = 0; i < gridSize; i++)
+	for (int i = 0; i < setting->gridSize; i++)
 	{
 
 
-		for (int j = 0; j < gridSize; j++)
+		for (int j = 0; j < setting->gridSize; j++)
 		{
 			// cellWidth*i is the horizontal coordinate of the left side of rectangle
 			// cellHeight*j is the vertical coordinate of the top of the rectangle
 			cellValue = gameGrid[j][i];
 			if (cellValue == true)
 			{
-				context->SetBrush(*wxLIGHT_GREY);
+				context->SetBrush(wxBrush(setting->GetLivingCellColor()));
 			}
 			else
 			{
-				context->SetBrush(*wxWHITE);
+				context->SetBrush(wxBrush(setting->GetDeadCellColor()));
 			}
 
 			context->DrawRectangle(cellWidth * i, cellHeight * j, cellWidth, cellHeight);
@@ -73,11 +73,11 @@ void DrawingPanel::OnMouseUp(wxMouseEvent& mouseEvent)
 	int _xValue = mouseEvent.GetX();
 	int _yValue = mouseEvent.GetY();
 	wxSize mysize = GetSize();
-	int cellWidth = mysize.GetWidth() / gridSize;
-	int cellHeight = mysize.GetHeight() / gridSize;
+	int cellWidth = mysize.GetWidth() / setting->gridSize;
+	int cellHeight = mysize.GetHeight() / setting->gridSize;
 	int column = _xValue / cellWidth;
 	int row = _yValue / cellHeight;
-	if (column >= gridSize || row >= gridSize)
+	if (column >= setting->gridSize || row >= setting->gridSize)
 	{
 		return;
 	}
@@ -111,10 +111,13 @@ void DrawingPanel::SetSize(const wxSize& _size)
 //grid size method
 void DrawingPanel::SetGridSize(int newsize)
 {
-	gridSize = newsize;
+	setting->gridSize = newsize;
 }
 
-
+void DrawingPanel::SetSetting(Settings* setting)
+{
+	this->setting = setting;
+}
 
 
 DrawingPanel::~DrawingPanel()

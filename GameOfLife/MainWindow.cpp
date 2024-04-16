@@ -31,6 +31,7 @@ MainWindow::MainWindow() :wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 
 	//status bar
 	statusBar = CreateStatusBar();
 	DrawingPanel* panel = new DrawingPanel(this, gridstates);
+	panel->SetSetting(&setting);
 	boxSizer = new wxBoxSizer(wxVERTICAL);
 	boxSizer->Add(panel, 1, wxEXPAND | wxALL);
 	this->panel = panel;
@@ -58,7 +59,7 @@ void MainWindow::OnSizeChange(wxSizeEvent& event)
 
 void MainWindow::OnPlay(wxCommandEvent& event)
 {
-	timer->Start(timerNum);
+	timer->Start(setting.interval);
 }
 
 void MainWindow::OnPause(wxCommandEvent& event)
@@ -93,23 +94,23 @@ void MainWindow::OnTimer(wxTimerEvent&)
 int MainWindow::NeighborCount(int x, int y)
 {
 	int result = 0;
-
+	int gridSize = this->setting.gridSize;
 	// this does 8*4 = 32 comparisons
-	if (0 <= x - 1 && x - 1 < GridSize && 0 <= y && y < GridSize)
+	if (0 <= x - 1 && x - 1 < gridSize && 0 <= y && y < gridSize)
 		if (gridstates[x - 1][y]) ++result;
-	if (0 <= x - 1 && x - 1 < GridSize && 0 <= y - 1 && y - 1 < GridSize)
+	if (0 <= x - 1 && x - 1 < gridSize && 0 <= y - 1 && y - 1 < gridSize)
 		if (gridstates[x - 1][y - 1]) ++result;
-	if (0 <= x && x < GridSize && 0 <= y - 1 && y - 1 < GridSize)
+	if (0 <= x && x < gridSize && 0 <= y - 1 && y - 1 < gridSize)
 		if (gridstates[x][y - 1]) ++result;
-	if (0 <= x + 1 && x + 1 < GridSize && 0 <= y - 1 && y - 1 < GridSize)
+	if (0 <= x + 1 && x + 1 < gridSize && 0 <= y - 1 && y - 1 < gridSize)
 		if (gridstates[x + 1][y - 1]) ++result;
-	if (0 <= x + 1 && x + 1 < GridSize && 0 <= y && y < GridSize)
+	if (0 <= x + 1 && x + 1 < gridSize && 0 <= y && y < gridSize)
 		if (gridstates[x + 1][y]) ++result;
-	if (0 <= x + 1 && x + 1 < GridSize && 0 <= y + 1 && y + 1 < GridSize)
+	if (0 <= x + 1 && x + 1 < gridSize && 0 <= y + 1 && y + 1 < gridSize)
 		if (gridstates[x + 1][y + 1]) ++result;
-	if (0 <= x && x < GridSize && 0 <= y + 1 && y + 1 < GridSize)
+	if (0 <= x && x < gridSize && 0 <= y + 1 && y + 1 < gridSize)
 		if (gridstates[x][y + 1]) ++result;
-	if (0 <= x - 1 && x - 1 < GridSize && 0 <= y + 1 && y + 1 < GridSize)
+	if (0 <= x - 1 && x - 1 < gridSize && 0 <= y + 1 && y + 1 < gridSize)
 		if (gridstates[x - 1][y + 1]) ++result;
 
 	return result;
@@ -144,11 +145,12 @@ int MainWindow::NeighborCount(int x, int y)
 	std::string statusText = "Generation: " + std::to_string(generation) + ", Living Cells: " + std::to_string(number_alive);
 	SetStatusBarText(wxString(statusText));
 	panel->Refresh();*/
-	 std::vector<std::vector<bool>> sandbox(GridSize, std::vector<bool>(GridSize, false));
+	 int gridSize = this->setting.gridSize;
+	 std::vector<std::vector<bool>> sandbox(gridSize, std::vector<bool>(gridSize, false));
 	 int number_alive = 0;
 
-	 for (int i = 0; i < GridSize; i++) {
-		 for (int j = 0; j < GridSize; j++) {
+	 for (int i = 0; i < gridSize; i++) {
+		 for (int j = 0; j < gridSize; j++) {
 			 int n = NeighborCount(i, j);
 			 if (gridstates[i][j]) { // Alive
 				 if (n < 2 || n > 3) {
@@ -179,18 +181,19 @@ int MainWindow::NeighborCount(int x, int y)
 //grid initialize
 void MainWindow::GridInitialize()
 {
+	int gridSize = setting.gridSize;
 	//set the the grid size to the variable Grid size.
-	gridstates.resize(GridSize);
+	gridstates.resize(gridSize);
 
 	//Populate with default values.
-	for (int i = 0; i < GridSize; i++)
+	for (int i = 0; i < gridSize; i++)
 	{
-		gridstates[i].resize(GridSize);
-		for (int j = 0; j < GridSize; j++)
+		gridstates[i].resize(gridSize);
+		for (int j = 0; j < gridSize; j++)
 			gridstates[i][j] = false;
 	}
 
-	panel->SetGridSize(GridSize);
+	panel->SetGridSize(gridSize);
 }
 
 void MainWindow::SetStatusBarText(const wxString& text)

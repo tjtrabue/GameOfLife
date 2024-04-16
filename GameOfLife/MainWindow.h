@@ -2,6 +2,8 @@
 #include "wx/wx.h"
 //#include "DrawingPanel.h"
 #include "MainWindow.h"
+#include "Settings.h"
+
 class DrawingPanel;
 class MainWindow : public wxFrame
 {
@@ -12,7 +14,7 @@ class MainWindow : public wxFrame
 	wxStatusBar* statusBar;
 	wxToolBar* toolBar;
 	wxTimer* timer;
-	int timerNum = 50;
+	Settings setting;
 	
 public:
 	static const int PLAY_ID = 10813;
@@ -33,7 +35,6 @@ public:
 	int NeighborCount(int x, int y);
 	void NextGeneration();
 	std::vector<std::vector<bool>> gridstates;
-	int GridSize = 15;
 	wxDECLARE_EVENT_TABLE();
 };
 
