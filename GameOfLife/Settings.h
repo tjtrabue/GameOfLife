@@ -1,5 +1,6 @@
 #pragma once
 #include "wx/wx.h"
+#include <fstream>
 
 struct Settings
 {
@@ -42,5 +43,21 @@ struct Settings
 		BlueD = color.Blue();
 		GreenD = color.Green();
 		AlphaD = color.Alpha();
+	}
+
+	void SaveData()
+	{
+		//Save Data
+		std::ofstream file("settings.bin", std::ios::out | std::ios::binary);
+		file.write((char*)this, sizeof(Settings));
+		file.close();
+	}
+
+	void LoadData()
+	{
+		//Load Data
+		std::ifstream file("settings.bin", std::ios::binary | std::ios::in);
+		file.read((char*)this, sizeof(Settings));
+		file.close();
 	}
 };

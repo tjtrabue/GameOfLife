@@ -10,6 +10,7 @@ void SettingsDialog::onOK(wxCommandEvent&)
 	setting->SetLivingCellColor(livingColorCtrl->GetColour());
 	setting->gridSize = gridSizeCtrl->GetValue();
 	setting->interval = intervalCtrl->GetValue();
+	setting->SaveData();
 	EndModal(wxID_OK);
 }
 

@@ -30,7 +30,7 @@ MainWindow::MainWindow() :wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 
 	toolBar->AddTool(NEXT_ID, "Next", nextIcon);
 	toolBar->AddTool(TRASH_ID, "Trash", trashIcon);
 	toolBar->Realize();
-
+	setting.LoadData();
 	//status bar
 	statusBar = CreateStatusBar();
 	DrawingPanel* panel = new DrawingPanel(this, gridstates);
