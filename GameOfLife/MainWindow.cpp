@@ -33,7 +33,7 @@ MainWindow::MainWindow() :wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 
 	setting.LoadData();
 	//status bar
 	statusBar = CreateStatusBar();
-	DrawingPanel* panel = new DrawingPanel(this, gridstates);
+	DrawingPanel* panel = new DrawingPanel(this, gridstates, neighborCount);
 	panel->SetSetting(&setting);
 	boxSizer = new wxBoxSizer(wxVERTICAL);
 	boxSizer->Add(panel, 1, wxEXPAND | wxALL);
@@ -173,6 +173,7 @@ int MainWindow::NeighborCount(int x, int y)
 	 for (int i = 0; i < gridSize; i++) {
 		 for (int j = 0; j < gridSize; j++) {
 			 int n = NeighborCount(i, j);
+			 neighborCount[i][j] = n;
 			 if (gridstates[i][j]) { // Alive
 				 if (n < 2 || n > 3) {
 					 sandbox[i][j] = false; // Cell dies
@@ -205,13 +206,18 @@ void MainWindow::GridInitialize()
 	int gridSize = setting.gridSize;
 	//set the the grid size to the variable Grid size.
 	gridstates.resize(gridSize);
+	neighborCount.resize(gridSize);
 
 	//Populate with default values.
 	for (int i = 0; i < gridSize; i++)
 	{
 		gridstates[i].resize(gridSize);
-		for (int j = 0; j < gridSize; j++)
+		neighborCount[i].resize(gridSize);
+		for (int j = 0; j < gridSize; j++) 
+		{
 			gridstates[i][j] = false;
+			neighborCount[i][j] = 0;
+		}
 	}
 
 	panel->SetGridSize(gridSize);

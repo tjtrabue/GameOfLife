@@ -9,7 +9,7 @@ wxBEGIN_EVENT_TABLE(DrawingPanel, wxPanel)
 wxEND_EVENT_TABLE()
 //class MainWindow;
 
-DrawingPanel::DrawingPanel(MainWindow* parent, std::vector<std::vector<bool>>& gameGrid) :wxPanel(parent), gameGrid(gameGrid)
+DrawingPanel::DrawingPanel(MainWindow* parent, std::vector<std::vector<bool>>& gameGrid, std::vector<std::vector<int>>& neighborCount) :wxPanel(parent), gameGrid(gameGrid), neighborCount(neighborCount)
 {
 	
 	this->SetBackgroundStyle(wxBG_STYLE_PAINT);

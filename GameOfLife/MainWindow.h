@@ -37,6 +37,7 @@ public:
 	int NeighborCount(int x, int y);
 	void NextGeneration();
 	std::vector<std::vector<bool>> gridstates;
+	std::vector<std::vector<int>> neighborCount;
 	wxDECLARE_EVENT_TABLE();
 };
 

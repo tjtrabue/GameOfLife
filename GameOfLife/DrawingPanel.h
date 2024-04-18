@@ -9,8 +9,9 @@ class DrawingPanel :public wxPanel
 	Settings* setting;
 public:
 	std::vector<std::vector<bool>>& gameGrid;
+	std::vector<std::vector<int>>& neighborCount;
 	void OnPaint(wxPaintEvent&);
-	DrawingPanel(MainWindow* parent, std::vector<std::vector<bool>>& gameGrid);
+	DrawingPanel(MainWindow* parent, std::vector<std::vector<bool>>& gameGrid, std::vector<std::vector<int>>& neighborCount);
 	void OnMouseUp(wxMouseEvent& mouseEvent);
 	void SetSize(const wxSize& _size);
 	void SetSetting(Settings*);

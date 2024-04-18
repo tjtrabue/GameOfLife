@@ -17,6 +17,7 @@ private:
 	static const int INTERVAL_ID = 11500;
 	static const int LIVINGCOLOR_ID = 11200;
 	static const int DEADCOLOR_ID = 11356;
+	static const int SHOWNEIGHBORCOUNT_ID = 11230;
 
 public:
 	SettingsDialog(wxWindow* parentWindow, Settings* setting) : wxDialog(parentWindow,wxID_ANY,"Settings Dialog")
@@ -52,7 +53,9 @@ public:
 		deadColorSizer->Add(deadColorText);
 		deadColorSizer->Add(deadColorCtrl);
 		boxSizer->Add(deadColorSizer);
-
+		//Show neighbor count
+		wxCheckBox* showNeighborCount = new wxCheckBox(this, SHOWNEIGHBORCOUNT_ID, "Show Neighbor Count");
+		showNeighborCount->SetValue(setting->showNeighborCount);
 		wxSizer* okCancelSizer = CreateButtonSizer(wxOK | wxCANCEL);
 		boxSizer->Add(okCancelSizer);
 
