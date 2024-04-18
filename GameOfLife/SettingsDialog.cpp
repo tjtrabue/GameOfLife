@@ -20,4 +20,5 @@ void SettingsDialog::onCancel(wxCommandEvent&)
 	livingColorCtrl->SetColour(setting->GetLivingCellColor());
 	deadColorCtrl->SetColour(setting->GetDeadCellColor());
 	EndModal(wxID_CANCEL);
+
 }
