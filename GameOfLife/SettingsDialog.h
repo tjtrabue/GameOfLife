@@ -48,7 +48,7 @@ public:
 		//dead color
 		wxBoxSizer* deadColorSizer = new wxBoxSizer(wxHORIZONTAL);
 		deadColorCtrl = new wxColourPickerCtrl(this, DEADCOLOR_ID);
-		wxStaticText* deadColorText = new wxStaticText(this, wxID_ANY, "Living Color");
+		wxStaticText* deadColorText = new wxStaticText(this, wxID_ANY, "Dead Color");
 		deadColorSizer->Add(deadColorText);
 		deadColorSizer->Add(deadColorCtrl);
 		boxSizer->Add(deadColorSizer);

@@ -4,6 +4,7 @@
 #include "pause.xpm"
 #include "next.xpm"
 #include "trash.xpm"
+#include "SettingsDialog.h"
 
 wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
 	EVT_SIZE(MainWindow::OnSizeChange)
@@ -11,6 +12,7 @@ wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
 	EVT_MENU(MainWindow::PAUSE_ID, MainWindow::OnPause)
 	EVT_MENU(MainWindow::NEXT_ID, MainWindow::OnNext)
 	EVT_MENU(MainWindow::TRASH_ID, MainWindow::OnTrash)
+	EVT_MENU(MainWindow::OPTIONMENU_ID, MainWindow::OnSettingsMenu)
 	EVT_TIMER(MainWindow::TIMER_ID, MainWindow::OnTimer)
 wxEND_EVENT_TABLE()
 
@@ -28,6 +30,7 @@ MainWindow::MainWindow() :wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 
 	toolBar->AddTool(NEXT_ID, "Next", nextIcon);
 	toolBar->AddTool(TRASH_ID, "Trash", trashIcon);
 	toolBar->Realize();
+
 	//status bar
 	statusBar = CreateStatusBar();
 	DrawingPanel* panel = new DrawingPanel(this, gridstates);
@@ -39,8 +42,15 @@ MainWindow::MainWindow() :wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 
 	//time
 	timer = new wxTimer(this, TIMER_ID);
 
+	//menu bar
+	wxMenuBar* menuBar = new wxMenuBar();
+	this->SetMenuBar(menuBar);
 
-	
+	//menu
+	wxMenu* optionMenu = new wxMenu();
+	optionMenu->Append(OPTIONMENU_ID, "Settings");
+	menuBar->Append(optionMenu, "Option Menu");
+
 	//this->Bind(wxEVT_SIZE, &MainWindow::OnSizeChange, this);
 
 	this->GridInitialize();
@@ -87,6 +97,17 @@ void MainWindow::OnTrash(wxCommandEvent& event)
 void MainWindow::OnTimer(wxTimerEvent&)
 {
 	NextGeneration();
+}
+
+void MainWindow::OnSettingsMenu(wxCommandEvent&)
+{
+	SettingsDialog settingDialog( this, &setting);
+	int result = settingDialog.ShowModal();
+	if (result == wxID_OK)
+	{
+		GridInitialize();
+		Refresh();
+	}
 }
 
 

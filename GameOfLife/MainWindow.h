@@ -22,6 +22,7 @@ public:
 	static const int NEXT_ID = 10433;
 	static const int TRASH_ID = 10999;
 	static const int TIMER_ID = 10566;
+	static const int OPTIONMENU_ID = 10666;
 	MainWindow();
 	~MainWindow();
 	void OnSizeChange(wxSizeEvent&);
@@ -32,6 +33,7 @@ public:
 	void OnNext(wxCommandEvent&);
 	void OnTrash(wxCommandEvent&);
 	void OnTimer(wxTimerEvent&);
+	void OnSettingsMenu(wxCommandEvent&);
 	int NeighborCount(int x, int y);
 	void NextGeneration();
 	std::vector<std::vector<bool>> gridstates;
